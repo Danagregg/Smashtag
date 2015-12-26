@@ -25,7 +25,7 @@ private var twitterAccount: ACAccount?
 public class TwitterRequest
 {
     public let requestType: String
-    public let parameters = Dictionary<String, String>()
+    public let parameters: [String: String]
     
     // designated initializer
     public init(_ requestType: String, _ parameters: Dictionary<String, String> = [:]) {
@@ -136,10 +136,7 @@ public class TwitterRequest
             request.performRequestWithHandler { (jsonResponse, httpResponse, _) in
                 var propertyListResponse: PropertyList?
                 if jsonResponse != nil {
-                    propertyListResponse = NSJSONSerialization.JSONObjectWithData(
-                        jsonResponse,
-                        options: NSJSONReadingOptions.MutableLeaves,
-                    )
+                    propertyListResponse = try? NSJSONSerialization.JSONObjectWithData(jsonResponse, options: NSJSONReadingOptions.MutableLeaves)
                     if propertyListResponse == nil {
                         let error = "Couldn't parse JSON response."
                         self.log(error)

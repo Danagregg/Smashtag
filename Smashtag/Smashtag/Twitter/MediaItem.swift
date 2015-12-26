@@ -13,8 +13,8 @@ import Foundation
 
 public struct MediaItem
 {
-    public let url: NSURL!
-    public let aspectRatio: Double = 0
+    public var url: NSURL! = nil
+    public var aspectRatio: Double = 0
     
     public var description: String { return (url.absoluteString ?? "no url") + " (aspect ratio = \(aspectRatio))" }
     
